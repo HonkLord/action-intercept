@@ -1,0 +1,45 @@
+.action-intercept-config {
+  padding: 10px;
+}
+
+.action-intercept-config .trigger {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.action-intercept-config .macro {
+  margin-top: 5px;
+}
+
+.action-intercept-config button {
+  margin-top: 5px;
+  margin-right: 5px;
+}
+
+.action-intercept-prompt {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.action-intercept-prompt .action-option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.action-intercept-prompt .action-option img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+}
+
+.action-intercept-prompt .action-option span {
+  margin-top: 5px;
+  text-align: center;
+}

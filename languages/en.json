@@ -1,14 +1,7 @@
 {
-  "AETHER-SPELLCASTING": {
-    "settings": {
-      "enable": {
-        "name": "Enable Aether Spellcasting",
-        "hint": "Enable the Aether spellcasting system."
-      }
-    },
-    "dialogs": {
-      "aetherPoints": "Aether Points",
-      "consumeAether": "Consume Aether?"
-    }
+  "ACTION_INTERCEPT": {
+    "ConfigureActions": "Configure Actions",
+    "SelectTrigger": "Select Trigger",
+    "SelectMacro": "Select Macro"
   }
 }
