@@ -21,6 +21,16 @@ export function registerSettings() {
     type: Object,
     default: {},
   });
+
+  // Register global configurations
+  game.settings.register("action-intercept", "globalConfigurations", {
+    name: "Global Configurations",
+    hint: "Stores global action intercept configurations for all actors",
+    scope: "world",
+    config: false,
+    type: Object,
+    default: {},
+  });
 }
 
 // Get triggers for a specific actor

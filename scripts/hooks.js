@@ -1,8 +1,16 @@
 import { showActionPrompt } from "./ui.js";
-import { getConfiguredTriggers } from "./settings.js";
+import { getConfiguredTriggers, getSetting } from "./settings.js";
+import {
+  addActionInterceptIndicators,
+  openItemConfig,
+  showQuickAccessDialog,
+} from "./ui.js";
 
 export function registerHooks() {
   Hooks.on("dnd5e.preUseItem", handleItemUse);
+  Hooks.on("ready", onReady);
+  Hooks.on("tidy5e-sheet.actorItemUseContextMenu", onActorItemUseContextMenu);
+  Hooks.on("midi-qol.preItemRoll", onMidiQolPreItemRoll);
 }
 
 async function handleItemUse(item, config, options) {
@@ -12,7 +20,7 @@ async function handleItemUse(item, config, options) {
   const triggers = getConfiguredTriggers(actor.id);
   if (!triggers || triggers.length === 0) return true;
 
-  const itemType = item.type; // 'weapon', 'spell', 'feat', etc.
+  const itemType = item.type;
   const matchingTriggers = triggers.filter(
     (t) => t.itemType === itemType || t.itemType === "any"
   );
@@ -28,14 +36,12 @@ async function handleItemUse(item, config, options) {
         img: macro.data.img,
         execute: async () => {
           await macro.execute({ item, config, options });
-          // After executing the macro, we continue with the original item use
           return true;
         },
       };
     })
   );
 
-  // Add an option to proceed without using any macro
   macroOptions.push({
     id: "proceed",
     name: "Proceed without modification",
@@ -48,5 +54,63 @@ async function handleItemUse(item, config, options) {
     return selectedOption.execute();
   }
 
-  return true; // If no option was selected, proceed with the original action
+  return true;
+}
+
+function onReady() {
+  console.log("Action Intercept | Ready hook triggered");
+
+  Hooks.on("tidy5e-sheet.ready", (api) => {
+    console.log("Tidy5eSheet API is ready:", api);
+
+    Hooks.on("tidy5e-sheet.renderActorSheet", (sheet, element, data) => {
+      console.log("Action Intercept | Tidy5eSheet Render Hook Fired");
+      addActionInterceptIndicators(api, data.actor, element);
+    });
+  });
+}
+
+function onActorItemUseContextMenu(item, options) {
+  console.log("Action Intercept | Adding option to Tidy5e context menu");
+  options.push({
+    name: "Configure Action Intercept",
+    icon: '<i class="fas fa-bolt"></i>',
+    condition: () => true,
+    callback: () => openItemConfig(item.actor, item.id),
+  });
+}
+
+async function onMidiQolPreItemRoll(workflow) {
+  console.log("Action Intercept | midi-qol.preItemRoll hook fired", workflow);
+
+  const actor = workflow.actor;
+  const item = workflow.item;
+
+  if (!actor || !item) {
+    console.log("Action Intercept | No actor or item found in workflow");
+    return true;
+  }
+
+  console.log("Action Intercept | Item roll detected:", item.name);
+
+  const configurations = getSetting("itemConfigurations");
+  const itemConfig = configurations[`${actor.id}-${item.id}`];
+
+  console.log("Action Intercept | Item configuration:", itemConfig);
+
+  if (itemConfig && itemConfig.length > 0) {
+    console.log("Action Intercept | Quick access items found, showing dialog");
+    const result = await showQuickAccessDialog(actor, itemConfig);
+    console.log("Action Intercept | Quick access dialog result:", result);
+    if (result === "cancel" || result === "used") {
+      console.log("Action Intercept | Roll cancelled or quick items used");
+      return false;
+    }
+  } else {
+    console.log(
+      "Action Intercept | No quick access items configured for this item"
+    );
+  }
+
+  return true;
 }

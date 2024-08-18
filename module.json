@@ -12,6 +12,7 @@
       "name": "Your Name"
     }
   ],
+  "scripts": [],
   "esmodules": ["scripts/action-intercept.js"],
   "styles": ["styles/action-intercept.css"],
   "templates": [

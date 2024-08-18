@@ -1,190 +1,140 @@
-import { getConfiguredTriggers, saveConfiguredTriggers } from "./settings.js";
-import { getConfiguredTriggers, saveConfiguredTriggers } from "./settings.js";
+export function addActionInterceptIndicators(api, actor, html) {
+  console.log("Action Intercept | Adding indicators for", actor.name);
 
-export function initializeUI() {
-  console.log("Action Intercept | Initializing UI");
+  // Get configurations for this actor
+  const configurations = game.settings.get(
+    "action-intercept",
+    "itemConfigurations"
+  );
+  const actorConfigs = Object.keys(configurations).filter((key) =>
+    key.startsWith(actor.id)
+  );
 
-  Hooks.on("renderActorSheet", (app, html, data) => {
-    console.log(
-      "Action Intercept | renderActorSheet hook fired",
-      app,
-      html,
-      data
-    );
+  console.log("Action Intercept | Actor configurations:", actorConfigs);
 
-    if (app.actor.type !== "character") {
-      console.log("Action Intercept | Not a character sheet, skipping");
-      return;
-    }
+  if (actorConfigs.length === 0) {
+    console.log("Action Intercept | No configurations found for this actor");
+    return;
+  }
 
-    console.log("Action Intercept | Processing character sheet");
+  // Query item rows using standard DOM queries
+  const itemRows = html.querySelectorAll(".item-table-row-container");
 
-    // Add configuration icons to items
-    const itemElements = html.find(".item-list .item-name");
-    console.log("Action Intercept | Found item elements:", itemElements.length);
+  console.log(`Found ${itemRows.length} item rows`);
 
-    itemElements.each((i, el) => {
-      const itemId = el.closest(".item")?.dataset?.itemId;
-      console.log("Action Intercept | Processing item:", i, itemId);
+  itemRows.forEach((row) => {
+    const itemId = row.getAttribute("data-item-id");
+    const configKey = `${actor.id}-${itemId}`;
 
-      if (!itemId) {
-        console.log("Action Intercept | No itemId found for element, skipping");
-        return;
+    if (actorConfigs.includes(configKey)) {
+      console.log(`Action Intercept | Adding indicator to item: ${itemId}`);
+
+      // Add lightning bolt icon to the item name
+      const itemName = row.querySelector(".item-name");
+      if (itemName) {
+        const existingIcon = itemName.querySelector(".fas.fa-bolt");
+
+        if (!existingIcon) {
+          const lightningBoltIcon = document.createElement("i");
+          lightningBoltIcon.className = "fas fa-bolt";
+          lightningBoltIcon.style.color = "#ffcc00";
+          lightningBoltIcon.style.marginRight = "5px";
+          lightningBoltIcon.title = "Action Intercept Configured";
+          itemName.insertBefore(lightningBoltIcon, itemName.firstChild);
+        } else {
+          console.log(`Lightning bolt icon already exists for item: ${itemId}`);
+        }
+      } else {
+        console.log(`Item name element not found for item: ${itemId}`);
       }
-
-      const configIcon = $(
-        `<a class="action-intercept-config" title="Configure Action Intercept"><i class="fas fa-cog"></i></a>`
-      );
-      $(el).append(configIcon);
-      console.log("Action Intercept | Added config icon to item:", itemId);
-
-      configIcon.click((ev) => {
-        console.log("Action Intercept | Config icon clicked for item:", itemId);
-        ev.preventDefault();
-        ev.stopPropagation();
-        openItemConfigMenu(app.actor, itemId);
-      });
-    });
-  });
-
-  // Implement preRoll hook
-  Hooks.on("preRollItem", async (item, config) => {
-    console.log("Action Intercept | preRollItem hook fired", item, config);
-
-    const triggers = getConfiguredTriggers(item.actor.id);
-    console.log("Action Intercept | Triggers for actor:", triggers);
-
-    const itemTrigger = triggers.find((t) => t.itemId === item.id);
-    console.log("Action Intercept | Trigger for item:", itemTrigger);
-
-    if (itemTrigger && itemTrigger.quickAccessItems.length > 0) {
-      console.log(
-        "Action Intercept | Quick access items found, showing dialog"
-      );
-      const result = await showQuickAccessDialog(
-        item.actor,
-        itemTrigger.quickAccessItems
-      );
-      if (result === "cancel") return false;
     }
-    return true;
   });
 }
 
-async function openItemConfigMenu(actor, item) {
-  const triggers = getConfiguredTriggers(actor.id);
-  const itemTrigger = triggers.find((t) => t.itemId === item.id) || {
-    quickAccessItems: [],
-  };
+// Move `openItemConfig` outside of `addActionInterceptIndicators`
+export function openItemConfig(actor, itemId) {
+  const item = actor.items.get(itemId);
+  if (!item) {
+    console.warn(`No item found for itemId: ${itemId}`);
+    return;
+  }
 
-  const content = await renderTemplate(
-    "modules/action-intercept/templates/item-config-menu.html",
-    {
-      item,
-      itemTrigger,
-      allItems: actor.items
-        .filter((i) => i.id !== item.id)
-        .map((i) => ({ id: i.id, name: i.name })),
-    }
-  );
+  console.log("Action Intercept | Opening config for item:", item.name);
+
+  const content = `
+      <h2>Configure ${item.name}</h2>
+      <p>Select quick access items:</p>
+      <div id="quickAccessItems"></div>
+      <button id="addQuickAccess">Add Quick Access Item</button>
+  `;
 
   new Dialog({
-    title: `Configure Action Intercept for ${item.name}`,
+    title: `Configure ${item.name}`,
     content: content,
     buttons: {
       save: {
         icon: '<i class="fas fa-save"></i>',
         label: "Save",
-        callback: (html) => saveItemConfig(actor, item.id, html),
+        callback: (html) => saveItemConfig(actor, itemId, html),
       },
       cancel: {
         icon: '<i class="fas fa-times"></i>',
         label: "Cancel",
       },
     },
+    render: (html) => renderItemConfig(html, actor, itemId),
     default: "save",
-    render: (html) => setupItemConfigListeners(html),
-    classes: ["action-intercept-dialog"],
   }).render(true);
 }
 
-function setupItemConfigListeners(html) {
-  html.find(".add-quick-access").click(() => addQuickAccessItem(html));
-  html.find(".remove-quick-access").click((ev) => removeQuickAccessItem(ev));
+function renderItemConfig(html, actor, itemId) {
+  const quickAccessDiv = html.find("#quickAccessItems");
+  const addButton = html.find("#addQuickAccess");
+
+  const configurations = game.settings.get(
+    "action-intercept",
+    "itemConfigurations"
+  );
+  const itemConfig = configurations[`${actor.id}-${itemId}`] || [];
+
+  console.log(`Rendering item config for itemId: ${itemId}`, itemConfig);
+
+  itemConfig.forEach((quickItemId) =>
+    addQuickAccessItem(quickAccessDiv, actor, quickItemId)
+  );
+
+  addButton.click(() => addQuickAccessItem(quickAccessDiv, actor));
 }
 
-function addQuickAccessItem(html) {
-  const itemTemplate = `
-        <div class="quick-access-item">
-            <select name="quickAccessItemId">
-                ${html.find(".add-quick-access select").html()}
-            </select>
-            <button type="button" class="remove-quick-access">Remove</button>
-        </div>
-    `;
-  html.find(".quick-access-container").append(itemTemplate);
-}
+function addQuickAccessItem(container, actor, selectedItemId = null) {
+  const select = $("<select></select>");
+  actor.items.forEach((item) => {
+    const option = $(`<option value="${item.id}">${item.name}</option>`);
+    if (item.id === selectedItemId) option.prop("selected", true);
+    select.append(option);
+  });
 
-function removeQuickAccessItem(ev) {
-  $(ev.currentTarget).closest(".quick-access-item").remove();
+  const removeButton = $('<button type="button">Remove</button>');
+  removeButton.click(() => removeButton.parent().remove());
+
+  const itemDiv = $("<div></div>").append(select).append(removeButton);
+  container.append(itemDiv);
+
+  console.log(`Added quick access item selector for itemId: ${selectedItemId}`);
 }
 
 function saveItemConfig(actor, itemId, html) {
-  const quickAccessItemIds = html
-    .find('select[name="quickAccessItemId"]')
+  const quickAccessItems = html
+    .find("#quickAccessItems select")
     .map((i, el) => el.value)
     .get();
-  let triggers = getConfiguredTriggers(actor.id);
-  const triggerIndex = triggers.findIndex((t) => t.itemId === itemId);
 
-  if (triggerIndex !== -1) {
-    triggers[triggerIndex].quickAccessItems = quickAccessItemIds;
-  } else {
-    triggers.push({ itemId, quickAccessItems: quickAccessItemIds });
-  }
-
-  saveConfiguredTriggers(actor.id, triggers);
-}
-
-async function showQuickAccessDialog(actor, quickAccessItemIds) {
-  const quickAccessItems = quickAccessItemIds
-    .map((id) => actor.items.get(id))
-    .filter((item) => item);
-
-  const content = await renderTemplate(
-    "modules/action-intercept/templates/quick-access-dialog.html",
-    {
-      quickAccessItems,
-    }
+  const configurations = game.settings.get(
+    "action-intercept",
+    "itemConfigurations"
   );
+  configurations[`${actor.id}-${itemId}`] = quickAccessItems;
+  game.settings.set("action-intercept", "itemConfigurations", configurations);
 
-  return new Promise((resolve) => {
-    new Dialog({
-      title: "Quick Access Items",
-      content: content,
-      buttons: {
-        useItem: {
-          icon: '<i class="fas fa-check"></i>',
-          label: "Use Item",
-          callback: (html) => {
-            const selectedItemId = html
-              .find('input[name="selectedItem"]:checked')
-              .val();
-            if (selectedItemId) {
-              const item = actor.items.get(selectedItemId);
-              item.roll();
-            }
-            resolve("used");
-          },
-        },
-        cancel: {
-          icon: '<i class="fas fa-times"></i>',
-          label: "Cancel",
-          callback: () => resolve("cancel"),
-        },
-      },
-      default: "useItem",
-      close: () => resolve("cancel"),
-    }).render(true);
-  });
+  console.log("Action Intercept | Configuration saved for item:", itemId);
 }
