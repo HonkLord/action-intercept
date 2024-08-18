@@ -1,28 +1,54 @@
 .action-intercept-config {
-  flex: 0 0 20px;
-  margin-left: 5px;
-  font-size: 12px;
-  line-height: 16px;
-  text-align: center;
+  min-width: 600px;
+  min-height: 400px;
+  padding: 20px;
 }
 
-.action-intercept-config i {
-  margin-right: 0;
+.action-intercept-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
 }
 
-.action-intercept-config .trigger {
+.action-intercept-table th,
+.action-intercept-table td {
   border: 1px solid #ccc;
   padding: 10px;
-  margin-bottom: 10px;
+  text-align: left;
+}
+
+.action-intercept-table th {
+  background-color: #f0f0f0;
+  font-weight: bold;
+}
+
+.action-intercept-table .trigger {
+  background-color: #ffffff;
+}
+
+.action-intercept-table .trigger:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.action-intercept-config select,
+.action-intercept-config button {
+  margin: 5px;
+}
+
+.action-intercept-config .macros-container {
+  display: flex;
+  flex-direction: column;
 }
 
 .action-intercept-config .macro {
-  margin-top: 5px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
 }
 
-.action-intercept-config button {
-  margin-top: 5px;
-  margin-right: 5px;
+.action-intercept-config .add-trigger {
+  display: block;
+  margin-top: 10px;
 }
 
 .action-intercept-prompt {
@@ -50,4 +76,10 @@
 .action-intercept-prompt .action-option span {
   margin-top: 5px;
   text-align: center;
+}
+
+/* Ensure the dialog is larger */
+.dialog.action-intercept-dialog .window-content {
+  min-width: 600px;
+  min-height: 400px;
 }

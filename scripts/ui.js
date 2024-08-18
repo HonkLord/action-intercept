@@ -62,21 +62,22 @@ async function openConfigMenu(actor) {
   );
 
   new Dialog({
-    title: "Configure Action Intercept",
+    title: game.i18n.localize("ACTION_INTERCEPT.ConfigureActions"),
     content: content,
     buttons: {
       save: {
         icon: '<i class="fas fa-save"></i>',
-        label: "Save",
+        label: game.i18n.localize("ACTION_INTERCEPT.Save"),
         callback: (html) => saveConfig(actor, html),
       },
       cancel: {
         icon: '<i class="fas fa-times"></i>',
-        label: "Cancel",
+        label: game.i18n.localize("ACTION_INTERCEPT.Cancel"),
       },
     },
     default: "save",
     render: (html) => setupConfigListeners(html, actor),
+    classes: ["action-intercept-dialog"], // Add this line to apply our CSS
   }).render(true);
 }
 

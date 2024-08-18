@@ -1,30 +1,43 @@
 <div class="action-intercept-config">
-    <h2>Configure Action Intercept for {{actor.name}}</h2>
-    <div class="triggers-container">
-        {{#each triggers}}
-        <div class="trigger">
-            <select name="itemType">
-                <option value="any" {{#if (eq this.itemType "any")}}selected{{/if}}>Any Item</option>
-                <option value="weapon" {{#if (eq this.itemType "weapon")}}selected{{/if}}>Weapon</option>
-                <option value="spell" {{#if (eq this.itemType "spell")}}selected{{/if}}>Spell</option>
-                <option value="feat" {{#if (eq this.itemType "feat")}}selected{{/if}}>Feature</option>
-            </select>
-            <div class="macros-container">
-                {{#each this.macros}}
-                <div class="macro">
-                    <select name="macroId">
-                        {{#each ../../game.macros.contents}}
-                        <option value="{{this.id}}" {{#if (eq this.id ../this)}}selected{{/if}}>{{this.name}}</option>
-                        {{/each}}
+    <h2>{{localize "ACTION_INTERCEPT.ConfigureActions"}} for {{actor.name}}</h2>
+    <table class="action-intercept-table">
+        <thead>
+            <tr>
+                <th>{{localize "ACTION_INTERCEPT.TriggerType"}}</th>
+                <th>{{localize "ACTION_INTERCEPT.AssociatedMacros"}}</th>
+                <th>{{localize "ACTION_INTERCEPT.Actions"}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each triggers}}
+            <tr class="trigger">
+                <td>
+                    <select name="itemType">
+                        <option value="any" {{#if (eq this.itemType "any")}}selected{{/if}}>{{localize "ACTION_INTERCEPT.AnyItem"}}</option>
+                        <option value="weapon" {{#if (eq this.itemType "weapon")}}selected{{/if}}>{{localize "ACTION_INTERCEPT.Weapon"}}</option>
+                        <option value="spell" {{#if (eq this.itemType "spell")}}selected{{/if}}>{{localize "ACTION_INTERCEPT.Spell"}}</option>
+                        <option value="feat" {{#if (eq this.itemType "feat")}}selected{{/if}}>{{localize "ACTION_INTERCEPT.Feature"}}</option>
                     </select>
-                    <button type="button" class="remove-macro">Remove Macro</button>
-                </div>
-                {{/each}}
-            </div>
-            <button type="button" class="add-macro">Add Macro</button>
-            <button type="button" class="remove-trigger">Remove Trigger</button>
-        </div>
-        {{/each}}
-    </div>
-    <button type="button" class="add-trigger">Add Trigger</button>
+                </td>
+                <td class="macros-container">
+                    {{#each this.macros}}
+                    <div class="macro">
+                        <select name="macroId">
+                            {{#each ../../game.macros.contents}}
+                            <option value="{{this.id}}" {{#if (eq this.id ../this)}}selected{{/if}}>{{this.name}}</option>
+                            {{/each}}
+                        </select>
+                        <button type="button" class="remove-macro">{{localize "ACTION_INTERCEPT.RemoveMacro"}}</button>
+                    </div>
+                    {{/each}}
+                    <button type="button" class="add-macro">{{localize "ACTION_INTERCEPT.AddMacro"}}</button>
+                </td>
+                <td>
+                    <button type="button" class="remove-trigger">{{localize "ACTION_INTERCEPT.RemoveTrigger"}}</button>
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+    <button type="button" class="add-trigger">{{localize "ACTION_INTERCEPT.AddTrigger"}}</button>
 </div>
