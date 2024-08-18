@@ -1,0 +1,19 @@
+{
+  "ACTION_INTERCEPT": {
+    "ConfigureActions": "Configure Actions",
+    "SelectTrigger": "Select Trigger",
+    "SelectMacro": "Select Macro",
+    "AddTrigger": "Add Trigger",
+    "RemoveTrigger": "Remove Trigger",
+    "AddMacro": "Add Macro",
+    "RemoveMacro": "Remove Macro",
+    "Save": "Save",
+    "Cancel": "Cancel",
+    "AnyItem": "Any Item",
+    "Weapon": "Weapon",
+    "Spell": "Spell",
+    "Feature": "Feature",
+    "ChooseYourAction": "Choose Your Action",
+    "ProceedWithoutModification": "Proceed without modification"
+  }
+}

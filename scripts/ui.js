@@ -1,12 +1,20 @@
 import { getConfiguredTriggers, saveConfiguredTriggers } from "./settings.js";
 
 export function initializeUI() {
-  // Add button to character sheets
   Hooks.on("renderActorSheet5e", (app, html, data) => {
+    console.log(
+      "Action Intercept | Attempting to add button to character sheet"
+    );
     const button = $(
       `<a class="action-intercept-config" title="Configure Action Intercept"><i class="fas fa-crosshairs"></i></a>`
     );
-    html.find(".window-title").append(button);
+    const titleElement = html.find(".window-title");
+    if (titleElement.length > 0) {
+      titleElement.append(button);
+      console.log("Action Intercept | Button added to character sheet");
+    } else {
+      console.error("Action Intercept | Could not find .window-title element");
+    }
     button.click((ev) => openConfigMenu(app.actor));
   });
 }
