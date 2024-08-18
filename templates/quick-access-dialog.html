@@ -1,0 +1,11 @@
+<div class="action-intercept-quick-access">
+    <h2>Quick Access Items</h2>
+    <form>
+        {{#each quickAccessItems}}
+        <div class="quick-access-option">
+            <input type="radio" id="item-{{this.id}}" name="selectedItem" value="{{this.id}}">
+            <label for="item-{{this.id}}">{{this.name}}</label>
+        </div>
+        {{/each}}
+    </form>
+</div>

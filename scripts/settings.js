@@ -1,10 +1,21 @@
-// settings.js
-
 // Register module settings
 export function registerSettings() {
+  console.log("Action Intercept | Registering settings...");
+
+  // Register the trigger configurations
   game.settings.register("action-intercept", "triggerConfigurations", {
     name: "Trigger Configurations",
     hint: "Stores the trigger configurations for each actor",
+    scope: "world",
+    config: false,
+    type: Object,
+    default: {},
+  });
+
+  // Register the item configurations
+  game.settings.register("action-intercept", "itemConfigurations", {
+    name: "Item Configurations",
+    hint: "Stores the item configurations for action intercept",
     scope: "world",
     config: false,
     type: Object,
@@ -14,6 +25,7 @@ export function registerSettings() {
 
 // Get triggers for a specific actor
 export function getConfiguredTriggers(actorId) {
+  console.log(`Action Intercept | Retrieving triggers for actor: ${actorId}`);
   const allConfigs = game.settings.get(
     "action-intercept",
     "triggerConfigurations"
@@ -23,6 +35,10 @@ export function getConfiguredTriggers(actorId) {
 
 // Save triggers for a specific actor
 export function saveConfiguredTriggers(actorId, triggers) {
+  console.log(
+    `Action Intercept | Saving triggers for actor: ${actorId}`,
+    triggers
+  );
   const allConfigs = game.settings.get(
     "action-intercept",
     "triggerConfigurations"
@@ -37,6 +53,7 @@ export function saveConfiguredTriggers(actorId, triggers) {
 
 // Get a specific setting
 export function getSetting(key) {
+  console.log(`Action Intercept | Getting setting for key: ${key}`);
   const parts = key.split(".");
   if (parts[0] === "triggers") {
     return getConfiguredTriggers(parts[1]);
@@ -46,6 +63,7 @@ export function getSetting(key) {
 
 // Set a specific setting
 export function setSetting(key, value) {
+  console.log(`Action Intercept | Setting value for key: ${key}`, value);
   const parts = key.split(".");
   if (parts[0] === "triggers") {
     return saveConfiguredTriggers(parts[1], value);

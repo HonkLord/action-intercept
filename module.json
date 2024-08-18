@@ -4,16 +4,20 @@
   "description": "A module for intercepting actions and providing custom macro responses.",
   "version": "1.0.0",
   "compatibility": {
-    "minimum": "12",
+    "minimum": "10",
     "verified": "12.331"
   },
   "authors": [
     {
-      "name": "HonkLord"
+      "name": "Your Name"
     }
   ],
   "esmodules": ["scripts/action-intercept.js"],
   "styles": ["styles/action-intercept.css"],
+  "templates": [
+    "templates/item-config-menu.html",
+    "templates/quick-access-dialog.html"
+  ],
   "languages": [
     {
       "lang": "en",
@@ -21,6 +25,7 @@
       "path": "lang/en.json"
     }
   ],
+
   "url": "https://github.com/HonkLord/action-intercept",
   "manifest": "https://raw.githubusercontent.com/HonkLord/action-intercept/main/module.json",
   "download": "https://github.com/HonkLord/action-intercept/archive/v1.0.0.zip"

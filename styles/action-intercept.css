@@ -1,85 +1,58 @@
 .action-intercept-config {
-  min-width: 600px;
-  min-height: 400px;
-  padding: 20px;
+  margin-left: 5px;
+  font-size: 12px;
+  color: #7a7971;
 }
 
-.action-intercept-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-bottom: 20px;
+.action-intercept-config:hover {
+  color: #000;
 }
-
-.action-intercept-table th,
-.action-intercept-table td {
-  border: 1px solid #ccc;
+.action-intercept-quick-access {
+  min-width: 300px;
   padding: 10px;
-  text-align: left;
 }
 
-.action-intercept-table th {
-  background-color: #f0f0f0;
-  font-weight: bold;
+.quick-access-container,
+.quick-access-option {
+  margin-bottom: 10px;
 }
 
-.action-intercept-table .trigger {
-  background-color: #ffffff;
-}
-
-.action-intercept-table .trigger:nth-child(even) {
-  background-color: #f9f9f9;
-}
-
-.action-intercept-config select,
-.action-intercept-config button {
-  margin: 5px;
-}
-
-.action-intercept-config .macros-container {
-  display: flex;
-  flex-direction: column;
-}
-
-.action-intercept-config .macro {
+.quick-access-item {
   display: flex;
   align-items: center;
   margin-bottom: 5px;
 }
 
-.action-intercept-config .add-trigger {
-  display: block;
-  margin-top: 10px;
+.quick-access-item select {
+  flex-grow: 1;
+  margin-right: 5px;
 }
 
-.action-intercept-prompt {
+.add-quick-access {
   display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-.action-intercept-prompt .action-option {
-  display: flex;
-  flex-direction: column;
   align-items: center;
-  padding: 5px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  cursor: pointer;
 }
 
-.action-intercept-prompt .action-option img {
-  width: 50px;
-  height: 50px;
-  object-fit: cover;
+.add-quick-access select {
+  margin-right: 5px;
 }
 
-.action-intercept-prompt .action-option span {
-  margin-top: 5px;
-  text-align: center;
+.action-intercept-quick-access .quick-access-option {
+  display: flex;
+  align-items: center;
 }
 
-/* Ensure the dialog is larger */
+.action-intercept-quick-access .quick-access-option label {
+  margin-left: 5px;
+}
+
+/* Ensure the dialog is an appropriate size */
 .dialog.action-intercept-dialog .window-content {
-  min-width: 600px;
-  min-height: 400px;
+  min-width: 300px;
+  min-height: 200px;
+}
+
+.lightning-bolt {
+  color: #ffcc00;
+  margin-right: 5px;
 }
