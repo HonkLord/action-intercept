@@ -1,16 +1,3 @@
-import { GlobalItemConfig } from "./global-config.js";
-
-Hooks.on("getActorSheetHeaderButtons", (app, buttons) => {
-  if (app.object.isOwner) {
-    buttons.unshift({
-      label: "Intercept Config",
-      class: "action-intercept-config",
-      icon: "fas fa-cogs",
-      onclick: () => new GlobalItemConfig().render(true),
-    });
-  }
-});
-
 export function addActionInterceptIndicators(api, actor, html) {
   console.log("Action Intercept | Adding indicators for", actor.name);
 
