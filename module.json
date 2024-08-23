@@ -2,7 +2,7 @@
   "id": "action-intercept",
   "title": "Action Intercept",
   "description": "A module for intercepting actions and providing custom macro responses.",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "compatibility": {
     "minimum": "10",
     "verified": "12.331"
