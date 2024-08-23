@@ -12,12 +12,14 @@
       "name": "HonkLord"
     }
   ],
-  "scripts": ["scripts/action-intercept.js", "global-config.js"],
-  "styles": ["styles/action-intercept.css"],
-  "templates": [
-    "templates/item-config-menu.html",
-    "templates/quick-access-dialog.html"
+  "esmodules": ["scripts/action-intercept.js"],
+  "scripts": [
+    "scripts/global-config.js",
+    "scripts/settings.js",
+    "scripts/ui.js"
   ],
+  "styles": ["styles/action-intercept.css"],
+  "templates": ["templates/global-config.html"],
   "languages": [
     {
       "lang": "en",
@@ -25,7 +27,6 @@
       "path": "lang/en.json"
     }
   ],
-
   "url": "https://github.com/HonkLord/action-intercept",
   "manifest": "https://raw.githubusercontent.com/HonkLord/action-intercept/main/module.json",
   "download": "https://github.com/HonkLord/action-intercept/archive/v1.0.0.zip"

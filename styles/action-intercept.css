@@ -1,137 +1,162 @@
 #action-intercept-global-config {
   font-size: 14px;
+  padding: 15px;
+  background-color: #fafafa;
+  border-radius: 8px;
+  resize: both;
+  overflow: auto;
 }
 
-#action-intercept-global-config #configured-items-table {
-  width: 100%;
-  border-collapse: separate;
-  border-spacing: 0;
-  border: 1px solid #ddd;
-}
-
-#action-intercept-global-config #configured-items-table th,
-#action-intercept-global-config #configured-items-table td {
-  padding: 8px;
-  border: 1px solid #ddd;
-  vertical-align: middle;
-}
-
-#action-intercept-global-config #configured-items-table th {
-  background-color: #f2f2f2;
+#action-intercept-global-config h2,
+#action-intercept-global-config h3 {
   font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+#configured-items-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed; /* Ensures fixed width distribution */
+}
+
+#configured-items-table th,
+#configured-items-table td {
+  padding: 4px;
+  border: 1px solid #ddd;
   text-align: left;
 }
 
-#action-intercept-global-config .icon-column {
-  width: 60px;
+#configured-items-table th {
+  background-color: #444;
+  color: white;
 }
 
-#action-intercept-global-config .name-column {
-  width: 20%;
-}
-
-#action-intercept-global-config .prompts-column {
-  width: 60%;
-}
-
-#action-intercept-global-config .actions-column {
-  width: 60px;
+#configured-items-table .icon-column {
+  width: 40px;
   text-align: center;
 }
 
-#action-intercept-global-config .item-image {
-  width: 50px;
-  height: 50px;
+#configured-items-table .name-column {
+  width: 130px; /* Reduced width for the name column */
+}
+
+#configured-items-table .prompts-column {
+  width: 300px; /* Increased width for prompts column */
+}
+
+#configured-items-table .actions-column {
+  width: 70px; /* Reduced width for actions column */
+  text-align: center;
+}
+
+#configured-items-table .item-image img {
+  width: 40px; /* Increase the icon size */
+  height: 40px; /* Make the icon larger */
+  object-fit: contain;
+  display: block; /* Make the image behave like a block-level element */
+  margin: 0 auto; /* Center horizontally */
+}
+
+#configured-items-table .prompt-icons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin: 0;
+}
+
+#configured-items-table .prompt-icon {
+  width: 24px;
+  height: 24px;
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-#action-intercept-global-config .item-image img {
-  max-width: 50px;
-  max-height: 50px;
-  object-fit: contain;
-}
-
-#action-intercept-global-config .item-name {
-  font-weight: bold;
-}
-
-#action-intercept-global-config .item-prompts {
-  padding-right: 10px;
-}
-
-#action-intercept-global-config .prompt-icons {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 5px;
-  margin-bottom: 10px;
-}
-
-#action-intercept-global-config .prompt-icon {
-  width: 30px;
-  height: 30px;
-  border: 1px solid #ddd;
+  border: 1px solid #ccc;
   border-radius: 4px;
-  overflow: hidden;
+  background-color: #f7f7f7;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+#configured-items-table .prompt-icon:hover {
+  background-color: #e7e7e7;
+}
+
+#configured-items-table .remove-item,
+#configured-items-table .copy-config {
+  padding: 2px 4px;
+  background-color: transparent;
+  border: none;
   cursor: pointer;
 }
 
-#action-intercept-global-config .prompt-icon img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+#configured-items-table .remove-item i,
+#configured-items-table .copy-config i {
+  font-size: 14px;
+  color: #007bff;
 }
 
-#action-intercept-global-config .prompt-search {
-  margin-top: 10px;
+#configured-items-table .remove-item:hover i {
+  color: #e74c3c;
+}
+
+#configured-items-table .copy-config:hover i {
+  color: #0056b3;
+}
+
+.droppable {
+  min-height: 40px;
+  border: 2px dashed #ccc;
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: #f9f9f9;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+.droppable.drag-hover {
+  background-color: #f1f1f1;
+  border-color: #aaa;
+}
+
+.prompt-search {
   position: relative;
 }
 
-#action-intercept-global-config .prompt-search-input {
-  width: 100%;
-  padding: 5px;
-}
-
-#action-intercept-global-config .prompt-search-results,
-#action-intercept-global-config #new-item-search-results {
+.prompt-search-results,
+#new-item-search-results {
   position: absolute;
-  z-index: 1000;
-  background: white;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background-color: white;
   border: 1px solid #ccc;
-  max-height: 200px;
+  max-height: 150px;
   overflow-y: auto;
-  width: 100%;
+  z-index: 1000;
 }
 
-#action-intercept-global-config .prompt-search-result,
-#action-intercept-global-config .new-item-search-result {
-  padding: 5px;
+.prompt-search-result,
+.new-item-search-result {
+  padding: 8px;
   cursor: pointer;
 }
 
-#action-intercept-global-config .prompt-search-result:hover,
-#action-intercept-global-config .new-item-search-result:hover {
-  background-color: #f0f0f0;
+.prompt-search-result:hover,
+.new-item-search-result:hover {
+  background-color: #e7e7e7;
 }
 
-#action-intercept-global-config .remove-prompt,
-#action-intercept-global-config .remove-item {
-  cursor: pointer;
-  color: #ff0000;
-  background: none;
-  border: none;
-  padding: 0;
+button[type="submit"] {
+  background-color: #28a745;
+  color: white;
+  padding: 8px 16px;
   font-size: 14px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-#action-intercept-global-config #item-search,
-#action-intercept-global-config #new-item-search {
-  width: 100%;
-  margin-bottom: 10px;
-  padding: 5px;
-}
-
-#action-intercept-global-config button[type="submit"] {
-  margin-top: 10px;
+button[type="submit"]:hover {
+  background-color: #218838;
 }

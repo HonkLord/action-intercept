@@ -1,74 +1,87 @@
-<form id="action-intercept-global-config">
+<form id="action-intercept-global-config" style="resize: both; overflow: auto">
   <h2>Global Action Intercept Configuration</h2>
 
+  <!-- Search Configured Items -->
   <div class="form-group">
     <label for="item-search">Search Configured Items:</label>
     <input
+      type="text"
       id="item-search"
-      type="text"
-      name="itemSearch"
-      placeholder="Type to search..."
+      name="item-search"
+      placeholder="Search configured items..."
     />
   </div>
 
-  <table id="configured-items-table">
-    <thead>
-      <tr>
-        <th class="icon-column">Icon</th>
-        <th class="name-column">Name</th>
-        <th class="prompts-column">Prompts</th>
-        <th class="actions-column">Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      {{#each configuredItems}}
-      <tr class="configured-item" data-item-id="{{this.id}}">
-        <td class="item-image">
-          <img src="{{this.img}}" alt="{{this.name}}" />
-        </td>
-        <td class="item-name">{{this.name}}</td>
-        <td class="item-prompts">
-          <div class="prompt-icons">
-            {{#each this.prompts}}
-            <div
-              class="prompt-icon"
-              data-prompt-id="{{this.id}}"
-              title="{{this.name}}"
-            >
-              <img src="{{this.img}}" alt="{{this.name}}" />
+  <!-- Configured Items Table -->
+  <div
+    class="configured-items-container"
+    style="resize: vertical; overflow-y: auto"
+  >
+    <table id="configured-items-table">
+      <thead>
+        <tr>
+          <th class="icon-column">Icon</th>
+          <th class="name-column">Name</th>
+          <th class="prompts-column">Prompts</th>
+          <th class="actions-column">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each configuredItems}}
+        <tr class="configured-item" data-item-id="{{this.id}}">
+          <td class="item-image">
+            <img src="{{this.img}}" alt="{{this.name}}" />
+          </td>
+          <td class="item-name">{{this.name}}</td>
+          <td class="item-prompts">
+            <div class="prompt-icons droppable">
+              {{#each this.prompts}}
+              <div
+                class="prompt-icon"
+                data-prompt-id="{{this.id}}"
+                title="{{this.name}}"
+              >
+                <img src="{{this.img}}" alt="{{this.name}}" />
+              </div>
+              {{/each}}
             </div>
-            {{/each}}
-          </div>
-          <div class="prompt-search">
-            <input
-              type="text"
-              class="prompt-search-input"
-              placeholder="Search for prompts..."
-            />
-            <div class="prompt-search-results" style="display: none"></div>
-          </div>
-        </td>
-        <td class="item-actions">
-          <button type="button" class="remove-item">
-            <i class="fas fa-trash"></i>
-          </button>
-        </td>
-      </tr>
-      {{/each}}
-    </tbody>
-  </table>
-
-  <h3>Add New Item</h3>
-  <div class="form-group">
-    <label for="new-item-search">Search Items to Add:</label>
-    <input
-      id="new-item-search"
-      type="text"
-      name="newItemSearch"
-      placeholder="Type to search..."
-    />
-    <div id="new-item-search-results" style="display: none"></div>
+            <div class="prompt-search">
+              <input
+                type="text"
+                class="prompt-search-input"
+                placeholder="Search prompts..."
+              />
+              <div class="prompt-search-results" style="display: none"></div>
+            </div>
+          </td>
+          <td class="actions-column">
+            <button type="button" class="remove-item">
+              <i class="fas fa-trash"></i>
+            </button>
+            <button type="button" class="copy-config">
+              <i class="fas fa-copy"></i>
+            </button>
+          </td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
   </div>
 
+  <!-- Section to Add New Items -->
+  <h3>Add New Item</h3>
+  <div id="new-item-area" class="droppable">
+    <p>Drag and drop items here or use the search below</p>
+    <div style="position: relative">
+      <input
+        type="text"
+        id="new-item-search"
+        placeholder="Search Items to Add"
+      />
+      <div id="new-item-search-results" style="display: none"></div>
+    </div>
+  </div>
+
+  <!-- Submit Configuration Button -->
   <button type="submit">Save Configuration</button>
 </form>
