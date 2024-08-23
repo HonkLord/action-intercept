@@ -1,3 +1,4 @@
+/* Scope all styles to the #action-intercept-global-config container */
 #action-intercept-global-config {
   font-size: 14px;
   padding: 15px;
@@ -14,58 +15,58 @@
   margin-bottom: 10px;
 }
 
-#configured-items-table {
+#action-intercept-global-config #configured-items-table {
   width: 100%;
   border-collapse: collapse;
   table-layout: fixed; /* Ensures fixed width distribution */
 }
 
-#configured-items-table th,
-#configured-items-table td {
+#action-intercept-global-config #configured-items-table th,
+#action-intercept-global-config #configured-items-table td {
   padding: 4px;
   border: 1px solid #ddd;
   text-align: left;
 }
 
-#configured-items-table th {
+#action-intercept-global-config #configured-items-table th {
   background-color: #444;
   color: white;
 }
 
-#configured-items-table .icon-column {
+#action-intercept-global-config .icon-column {
   width: 40px;
   text-align: center;
 }
 
-#configured-items-table .name-column {
+#action-intercept-global-config .name-column {
   width: 130px; /* Reduced width for the name column */
 }
 
-#configured-items-table .prompts-column {
+#action-intercept-global-config .prompts-column {
   width: 300px; /* Increased width for prompts column */
 }
 
-#configured-items-table .actions-column {
+#action-intercept-global-config .actions-column {
   width: 70px; /* Reduced width for actions column */
   text-align: center;
 }
 
-#configured-items-table .item-image img {
-  width: 40px; /* Increase the icon size */
-  height: 40px; /* Make the icon larger */
+#action-intercept-global-config .item-image img {
+  width: 40px;
+  height: 40px;
   object-fit: contain;
-  display: block; /* Make the image behave like a block-level element */
-  margin: 0 auto; /* Center horizontally */
+  display: block;
+  margin: 0 auto;
 }
 
-#configured-items-table .prompt-icons {
+#action-intercept-global-config .prompt-icons {
   display: flex;
   flex-wrap: wrap;
   gap: 4px;
   margin: 0;
 }
 
-#configured-items-table .prompt-icon {
+#action-intercept-global-config .prompt-icon {
   width: 24px;
   height: 24px;
   display: flex;
@@ -78,33 +79,33 @@
   transition: background-color 0.3s;
 }
 
-#configured-items-table .prompt-icon:hover {
+#action-intercept-global-config .prompt-icon:hover {
   background-color: #e7e7e7;
 }
 
-#configured-items-table .remove-item,
-#configured-items-table .copy-config {
+#action-intercept-global-config .remove-item,
+#action-intercept-global-config .copy-config {
   padding: 2px 4px;
   background-color: transparent;
   border: none;
   cursor: pointer;
 }
 
-#configured-items-table .remove-item i,
-#configured-items-table .copy-config i {
+#action-intercept-global-config .remove-item i,
+#action-intercept-global-config .copy-config i {
   font-size: 14px;
   color: #007bff;
 }
 
-#configured-items-table .remove-item:hover i {
+#action-intercept-global-config .remove-item:hover i {
   color: #e74c3c;
 }
 
-#configured-items-table .copy-config:hover i {
+#action-intercept-global-config .copy-config:hover i {
   color: #0056b3;
 }
 
-.droppable {
+#action-intercept-global-config .droppable {
   min-height: 40px;
   border: 2px dashed #ccc;
   padding: 10px;
@@ -113,17 +114,17 @@
   transition: background-color 0.3s, border-color 0.3s;
 }
 
-.droppable.drag-hover {
+#action-intercept-global-config .droppable.drag-hover {
   background-color: #f1f1f1;
   border-color: #aaa;
 }
 
-.prompt-search {
+#action-intercept-global-config .prompt-search {
   position: relative;
 }
 
-.prompt-search-results,
-#new-item-search-results {
+#action-intercept-global-config .prompt-search-results,
+#action-intercept-global-config #new-item-search-results {
   position: absolute;
   top: 100%;
   left: 0;
@@ -135,18 +136,18 @@
   z-index: 1000;
 }
 
-.prompt-search-result,
-.new-item-search-result {
+#action-intercept-global-config .prompt-search-result,
+#action-intercept-global-config .new-item-search-result {
   padding: 8px;
   cursor: pointer;
 }
 
-.prompt-search-result:hover,
-.new-item-search-result:hover {
+#action-intercept-global-config .prompt-search-result:hover,
+#action-intercept-global-config .new-item-search-result:hover {
   background-color: #e7e7e7;
 }
 
-button[type="submit"] {
+#action-intercept-global-config button[type="submit"] {
   background-color: #28a745;
   color: white;
   padding: 8px 16px;
@@ -157,6 +158,6 @@ button[type="submit"] {
   transition: background-color 0.3s ease;
 }
 
-button[type="submit"]:hover {
+#action-intercept-global-config button[type="submit"]:hover {
   background-color: #218838;
 }

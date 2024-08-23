@@ -1,24 +1,68 @@
-# Aether Spellcasting
+# Action Intercept
 
-This is a Foundry VTT module that implements a custom spellcasting system using Aether points for D&D 5e.
+## Overview
+
+**Action Intercept** is a Foundry VTT module designed to intercept actions within the system and provide custom macro responses. This allows for greater control and customization of actions based on player interactions, game states, and specific triggers.
 
 ## Features
 
-- Allows spellcasting using Aether points as an alternative to spell slots
-- Modifies the spell casting dialog to include Aether point options
-- Integrates with the DnD5e system and Midi-QOL
+- Intercept player and NPC actions in real-time.
+- Customize macro responses based on intercepted actions.
+- Easily configure the module through the settings panel.
+- Supports multiple languages (currently English).
 
 ## Installation
 
-1. Copy this link: [REPLACE WITH YOUR MODULE JSON URL]
-2. In Foundry VTT, navigate to Add-on Modules
-3. Click "Install Module" and paste the copied link
-4. Click "Install"
+To install the **Action Intercept** module:
+
+1. Go to the "Add-on Modules" tab in the Foundry VTT setup menu.
+2. Click "Install Module."
+3. Paste the following URL into the "Manifest URL" field:
+   https://raw.githubusercontent.com/HonkLord/action-intercept/main/module.json
+4. Click "Install" and wait for the installation to complete.
+
+Alternatively, you can manually download the module from GitHub:
+
+- [Download Action Intercept](https://github.com/HonkLord/action-intercept/archive/v1.0.1.zip)
+
+After downloading, extract the zip file into the `modules` directory of your Foundry VTT installation.
+
+## Compatibility
+
+- **Minimum Foundry VTT Version:** 10
+- **Verified Compatibility with Foundry VTT Version:** 12.331
 
 ## Usage
 
-[Describe how to use your module here]
+Once installed, you can access the module's settings through the **Module Settings** menu. From there, you can configure global configurations, customize UI elements, and set up the desired macro responses for intercepted actions.
 
-## License
+### Scripts and Styles
 
-[Include your chosen license here]
+This module includes several scripts and styles to enhance your experience:
+
+- **Scripts:**
+- `action-intercept.js`
+- `global-config.js`
+- `settings.js`
+- `ui.js`
+
+- **Styles:**
+- `action-intercept.css`
+
+### Templates
+
+- `global-config.html`
+
+## Authors
+
+- **HonkLord**
+
+## Support
+
+If you encounter any issues or have questions about the module, feel free to submit an issue on the [GitHub repository](https://github.com/HonkLord/action-intercept/issues).
+
+## Changelog
+
+### v1.0.1
+
+- Initial release with action interception and custom macro responses.

@@ -12,12 +12,13 @@
       "name": "HonkLord"
     }
   ],
-  "esmodules": ["scripts/action-intercept.js"],
-  "scripts": [
+  "esmodules": [
+    "scripts/action-intercept.js",
     "scripts/global-config.js",
     "scripts/settings.js",
     "scripts/ui.js"
   ],
+  "scripts": [],
   "styles": ["styles/action-intercept.css"],
   "templates": ["templates/global-config.html"],
   "languages": [
