@@ -1,0 +1,74 @@
+<form id="action-intercept-global-config">
+  <h2>Global Action Intercept Configuration</h2>
+
+  <div class="form-group">
+    <label for="item-search">Search Configured Items:</label>
+    <input
+      id="item-search"
+      type="text"
+      name="itemSearch"
+      placeholder="Type to search..."
+    />
+  </div>
+
+  <table id="configured-items-table">
+    <thead>
+      <tr>
+        <th class="icon-column">Icon</th>
+        <th class="name-column">Name</th>
+        <th class="prompts-column">Prompts</th>
+        <th class="actions-column">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each configuredItems}}
+      <tr class="configured-item" data-item-id="{{this.id}}">
+        <td class="item-image">
+          <img src="{{this.img}}" alt="{{this.name}}" />
+        </td>
+        <td class="item-name">{{this.name}}</td>
+        <td class="item-prompts">
+          <div class="prompt-icons">
+            {{#each this.prompts}}
+            <div
+              class="prompt-icon"
+              data-prompt-id="{{this.id}}"
+              title="{{this.name}}"
+            >
+              <img src="{{this.img}}" alt="{{this.name}}" />
+            </div>
+            {{/each}}
+          </div>
+          <div class="prompt-search">
+            <input
+              type="text"
+              class="prompt-search-input"
+              placeholder="Search for prompts..."
+            />
+            <div class="prompt-search-results" style="display: none"></div>
+          </div>
+        </td>
+        <td class="item-actions">
+          <button type="button" class="remove-item">
+            <i class="fas fa-trash"></i>
+          </button>
+        </td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+
+  <h3>Add New Item</h3>
+  <div class="form-group">
+    <label for="new-item-search">Search Items to Add:</label>
+    <input
+      id="new-item-search"
+      type="text"
+      name="newItemSearch"
+      placeholder="Type to search..."
+    />
+    <div id="new-item-search-results" style="display: none"></div>
+  </div>
+
+  <button type="submit">Save Configuration</button>
+</form>

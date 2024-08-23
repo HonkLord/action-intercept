@@ -1,10 +1,10 @@
-import { showActionPrompt } from "./ui.js";
-import { getConfiguredTriggers, getSetting } from "./settings.js";
 import {
+  showActionPrompt,
   addActionInterceptIndicators,
   openItemConfig,
   showQuickAccessDialog,
 } from "./ui.js";
+import { getConfiguredTriggers, getSetting } from "./settings.js";
 
 export function registerHooks() {
   Hooks.on("dnd5e.preUseItem", handleItemUse);

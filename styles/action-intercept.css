@@ -1,58 +1,137 @@
-.action-intercept-config {
-  margin-left: 5px;
-  font-size: 12px;
-  color: #7a7971;
+#action-intercept-global-config {
+  font-size: 14px;
 }
 
-.action-intercept-config:hover {
-  color: #000;
-}
-.action-intercept-quick-access {
-  min-width: 300px;
-  padding: 10px;
+#action-intercept-global-config #configured-items-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 1px solid #ddd;
 }
 
-.quick-access-container,
-.quick-access-option {
+#action-intercept-global-config #configured-items-table th,
+#action-intercept-global-config #configured-items-table td {
+  padding: 8px;
+  border: 1px solid #ddd;
+  vertical-align: middle;
+}
+
+#action-intercept-global-config #configured-items-table th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+  text-align: left;
+}
+
+#action-intercept-global-config .icon-column {
+  width: 60px;
+}
+
+#action-intercept-global-config .name-column {
+  width: 20%;
+}
+
+#action-intercept-global-config .prompts-column {
+  width: 60%;
+}
+
+#action-intercept-global-config .actions-column {
+  width: 60px;
+  text-align: center;
+}
+
+#action-intercept-global-config .item-image {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#action-intercept-global-config .item-image img {
+  max-width: 50px;
+  max-height: 50px;
+  object-fit: contain;
+}
+
+#action-intercept-global-config .item-name {
+  font-weight: bold;
+}
+
+#action-intercept-global-config .item-prompts {
+  padding-right: 10px;
+}
+
+#action-intercept-global-config .prompt-icons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
   margin-bottom: 10px;
 }
 
-.quick-access-item {
-  display: flex;
-  align-items: center;
-  margin-bottom: 5px;
+#action-intercept-global-config .prompt-icon {
+  width: 30px;
+  height: 30px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  overflow: hidden;
+  cursor: pointer;
 }
 
-.quick-access-item select {
-  flex-grow: 1;
-  margin-right: 5px;
+#action-intercept-global-config .prompt-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
-.add-quick-access {
-  display: flex;
-  align-items: center;
+#action-intercept-global-config .prompt-search {
+  margin-top: 10px;
+  position: relative;
 }
 
-.add-quick-access select {
-  margin-right: 5px;
+#action-intercept-global-config .prompt-search-input {
+  width: 100%;
+  padding: 5px;
 }
 
-.action-intercept-quick-access .quick-access-option {
-  display: flex;
-  align-items: center;
+#action-intercept-global-config .prompt-search-results,
+#action-intercept-global-config #new-item-search-results {
+  position: absolute;
+  z-index: 1000;
+  background: white;
+  border: 1px solid #ccc;
+  max-height: 200px;
+  overflow-y: auto;
+  width: 100%;
 }
 
-.action-intercept-quick-access .quick-access-option label {
-  margin-left: 5px;
+#action-intercept-global-config .prompt-search-result,
+#action-intercept-global-config .new-item-search-result {
+  padding: 5px;
+  cursor: pointer;
 }
 
-/* Ensure the dialog is an appropriate size */
-.dialog.action-intercept-dialog .window-content {
-  min-width: 300px;
-  min-height: 200px;
+#action-intercept-global-config .prompt-search-result:hover,
+#action-intercept-global-config .new-item-search-result:hover {
+  background-color: #f0f0f0;
 }
 
-.lightning-bolt {
-  color: #ffcc00;
-  margin-right: 5px;
+#action-intercept-global-config .remove-prompt,
+#action-intercept-global-config .remove-item {
+  cursor: pointer;
+  color: #ff0000;
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 14px;
+}
+
+#action-intercept-global-config #item-search,
+#action-intercept-global-config #new-item-search {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 5px;
+}
+
+#action-intercept-global-config button[type="submit"] {
+  margin-top: 10px;
 }

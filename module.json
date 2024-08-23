@@ -9,11 +9,10 @@
   },
   "authors": [
     {
-      "name": "Your Name"
+      "name": "HonkLord"
     }
   ],
-  "scripts": [],
-  "esmodules": ["scripts/action-intercept.js"],
+  "scripts": ["scripts/action-intercept.js", "global-config.js"],
   "styles": ["styles/action-intercept.css"],
   "templates": [
     "templates/item-config-menu.html",

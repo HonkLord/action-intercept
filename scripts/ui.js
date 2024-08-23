@@ -1,3 +1,16 @@
+import { GlobalItemConfig } from "./global-config.js";
+
+Hooks.on("getActorSheetHeaderButtons", (app, buttons) => {
+  if (app.object.isOwner) {
+    buttons.unshift({
+      label: "Intercept Config",
+      class: "action-intercept-config",
+      icon: "fas fa-cogs",
+      onclick: () => new GlobalItemConfig().render(true),
+    });
+  }
+});
+
 export function addActionInterceptIndicators(api, actor, html) {
   console.log("Action Intercept | Adding indicators for", actor.name);
 
@@ -26,24 +39,24 @@ export function addActionInterceptIndicators(api, actor, html) {
     const itemId = row.getAttribute("data-item-id");
     const configKey = `${actor.id}-${itemId}`;
 
+    // Remove existing icon if present
+    const existingIcon = row.querySelector(".fas.fa-bolt");
+    if (existingIcon) {
+      existingIcon.remove();
+    }
+
     if (actorConfigs.includes(configKey)) {
       console.log(`Action Intercept | Adding indicator to item: ${itemId}`);
 
       // Add lightning bolt icon to the item name
       const itemName = row.querySelector(".item-name");
       if (itemName) {
-        const existingIcon = itemName.querySelector(".fas.fa-bolt");
-
-        if (!existingIcon) {
-          const lightningBoltIcon = document.createElement("i");
-          lightningBoltIcon.className = "fas fa-bolt";
-          lightningBoltIcon.style.color = "#ffcc00";
-          lightningBoltIcon.style.marginRight = "5px";
-          lightningBoltIcon.title = "Action Intercept Configured";
-          itemName.insertBefore(lightningBoltIcon, itemName.firstChild);
-        } else {
-          console.log(`Lightning bolt icon already exists for item: ${itemId}`);
-        }
+        const lightningBoltIcon = document.createElement("i");
+        lightningBoltIcon.className = "fas fa-bolt";
+        lightningBoltIcon.style.color = "#ffcc00";
+        lightningBoltIcon.style.marginRight = "5px";
+        lightningBoltIcon.title = "Action Intercept Configured";
+        itemName.insertBefore(lightningBoltIcon, itemName.firstChild);
       } else {
         console.log(`Item name element not found for item: ${itemId}`);
       }
